@@ -83,6 +83,17 @@ function addBookToLibrary(e) {
   displayBooks();
 }
 
+
+// Deletes a specific book
+function deleteBook(target) {
+  if (target.classList.contains("material-icons")) {
+    const index = target.parentElement.parentElement.getAttribute("index");
+    myLibrary.splice(index, 1);
+  }
+
+  displayBooks();
+}
+
 function clearInput() {
   authorEl.value = "";
   titleEl.value = "";
@@ -93,3 +104,4 @@ function clearInput() {
 // Event listeners
 addBookBtn.addEventListener("click", displayInputForm);
 inputContainer.addEventListener("submit", (e) => addBookToLibrary(e));
+booksContainer.addEventListener("click", (e) => deleteBook(e.target));
