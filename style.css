@@ -38,15 +38,15 @@ button {
   border: none;
   border-radius: 10px;
   font-family: "Courgette", cursive;
-  color: rgb(5, 5, 5);
-  background: rgb(212, 231, 252);
+  color: white;
+  background: dodgerblue;
   outline: none;
-  padding: 0.2rem 1rem;
+  padding: 0.1rem 1rem;
   box-shadow: 0 0.3rem rgba(212, 212, 212, 0.65);
 }
 
 button:hover {
-  filter: brightness(98%);
+  filter: brightness(110%);
 }
 
 button:active {
@@ -58,7 +58,7 @@ button:active {
 .form-container {
   width: 400px;
   max-width: 90%;
-  height: 400px;
+  height: 450px;
   background: white;
   display: none;
   flex-direction: column;
@@ -85,7 +85,7 @@ button:active {
   margin-top: 5px;
   height: 30px;
   border-radius: 5px;
-  border: solid 1px black;
+  border: solid 1px rgb(199, 199, 199);
 }
 
 .form-group.check {
@@ -124,8 +124,13 @@ button:active {
   background-color: white;
   min-height: 300px;
   border-radius: 5%;
-
+  animation: popup 0.5s;
   box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.5);
+}
+
+.book-read-color {
+  background-color: dodgerblue;
+  color: white;
 }
 
 .book-frame {
@@ -141,11 +146,6 @@ button:active {
   font-size: 36px;
   cursor: pointer;
   border-radius: 50%;
-}
-
-.material-icons.md-36:hover {
-  background-color: black;
-  color: white;
 }
 
 /* Toogle Switch */
@@ -182,7 +182,7 @@ button:active {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #ccc;
+  background-color: rgb(228, 228, 228);
   -webkit-transition: 0.4s;
   transition: 0.4s;
 }
@@ -194,17 +194,17 @@ button:active {
   width: 26px;
   left: 4px;
   bottom: 4px;
-  background-color: white;
+  background-color: rgb(255, 255, 255);
   -webkit-transition: 0.4s;
   transition: 0.4s;
 }
 
 .switch:hover {
-  filter: brightness(105%);
+  filter: brightness(90%);
 }
 
 input:checked + .slider {
-  background-color: #2196f3;
+  background-color: #ff9966;
 }
 
 input:focus + .slider {
@@ -237,5 +237,9 @@ input:checked + .slider:before {
 
   button {
     font-size: 1rem;
+  }
+
+  .form-group.check {
+    width: 80%;
   }
 }

@@ -7,6 +7,7 @@ const titleEl = document.querySelector("#title");
 const pagesEl = document.querySelector("#pages");
 const isReadEl = document.querySelector("#read");
 const booksContainer = document.querySelector(".books-container");
+const closeInputBtn = document.querySelector("#close-input-btn");
 
 let myLibrary = [];
 
@@ -15,6 +16,17 @@ function Book(author, title, pages, read) {
   this.title = title;
   this.pages = pages;
   this.read = read;
+}
+
+// Update the library from localstorage
+function getStorageData() {
+  localStorage.getItem("library")
+    ? (myLibrary = JSON.parse(localStorage.getItem("library")))
+    : localStorage.setItem("library", JSON.stringify(myLibrary));
+}
+
+function updateLocalStorage() {
+  localStorage.setItem("library", JSON.stringify(myLibrary));
 }
 
 // Updating the DOM
@@ -50,6 +62,7 @@ function displayBooks() {
 
     if (book.read === true) {
       input.setAttribute("checked", "checked");
+      bookContainer.classList.add("book-read-color");
     }
 
     const slider = document.createElement("span");
@@ -65,7 +78,7 @@ function displayBooks() {
 
 function displayInputForm() {
   inputContainer.style.display = "flex";
-  container.style.opacity = 0.33;
+  container.style.opacity = 0.2;
 }
 
 // Takes input and creates new book object
@@ -82,17 +95,18 @@ function addBookToLibrary(e) {
   inputContainer.style.display = "none";
   container.style.opacity = 1;
   clearInput();
+  updateLocalStorage();
   displayBooks();
 }
 
-// Deletes a specific book
+// Delete a specific book
 function deleteBook(target) {
   if (target.classList.contains("material-icons")) {
     const index = target.parentElement.parentElement.getAttribute("index");
     myLibrary.splice(index, 1);
+    updateLocalStorage();
+    displayBooks();
   }
-
-  displayBooks();
 }
 
 // Change the read state
@@ -100,9 +114,15 @@ function toggleRead(target) {
   if (target.classList.contains("slider")) {
     const index = target.closest(".book").getAttribute("index");
     myLibrary[index].read = !myLibrary[index].read;
+    target.closest(".book").classList.toggle("book-read-color");
+    updateLocalStorage();
   }
+}
 
-  displayBooks();
+function closeInputForm() {
+  inputContainer.style.display = "none";
+  container.style.opacity = 1;
+  clearInput();
 }
 
 function clearInput() {
@@ -117,3 +137,8 @@ addBookBtn.addEventListener("click", displayInputForm);
 inputContainer.addEventListener("submit", (e) => addBookToLibrary(e));
 booksContainer.addEventListener("click", (e) => deleteBook(e.target));
 booksContainer.addEventListener("click", (e) => toggleRead(e.target));
+closeInputBtn.addEventListener("click", closeInputForm);
+
+// On load
+getStorageData();
+displayBooks();
