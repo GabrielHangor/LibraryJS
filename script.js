@@ -17,6 +17,7 @@ function Book(author, title, pages, read) {
   this.read = read;
 }
 
+// Updating the DOM
 function displayBooks() {
   booksContainer.textContent = "";
 
@@ -67,6 +68,7 @@ function displayInputForm() {
   container.style.opacity = 0.33;
 }
 
+// Takes input and creates new book object
 function addBookToLibrary(e) {
   e.preventDefault();
   const author = authorEl.value;
@@ -83,12 +85,21 @@ function addBookToLibrary(e) {
   displayBooks();
 }
 
-
 // Deletes a specific book
 function deleteBook(target) {
   if (target.classList.contains("material-icons")) {
     const index = target.parentElement.parentElement.getAttribute("index");
     myLibrary.splice(index, 1);
+  }
+
+  displayBooks();
+}
+
+// Change the read state
+function toggleRead(target) {
+  if (target.classList.contains("slider")) {
+    const index = target.closest(".book").getAttribute("index");
+    myLibrary[index].read = !myLibrary[index].read;
   }
 
   displayBooks();
@@ -105,3 +116,4 @@ function clearInput() {
 addBookBtn.addEventListener("click", displayInputForm);
 inputContainer.addEventListener("submit", (e) => addBookToLibrary(e));
 booksContainer.addEventListener("click", (e) => deleteBook(e.target));
+booksContainer.addEventListener("click", (e) => toggleRead(e.target));
